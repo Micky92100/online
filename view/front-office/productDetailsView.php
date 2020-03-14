@@ -35,7 +35,7 @@ if (!empty($product)) {
             echo '<tr>';
             echo '<td>' . $title . '</td>';
             echo '<td>' . $rating . '/5</td>';
-            echo '<td><img src="../../img/' . $img . '" class="img-thumbnail" width="140" alt="' . $desc . '"></td>';
+            echo '<td><img src="'. URL .'img/' . $img . '" class="img-thumbnail" width="140" alt="' . $desc . '"></td>';
             echo '<td>' . $desc . '</td>';
             echo '<td>' . $arrival . '</td>';
             echo '<td>' . $departure . '</td>';

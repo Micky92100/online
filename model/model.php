@@ -3,7 +3,6 @@
 
 session_start();
 define('SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
-// define('SITE_ROOT', SERVER_ROOT . '/switch/');
 define('SITE_ROOT', '/switch/');
 
 define('URL', 'http://hotelcop-paris.fr/switch/'); // lien absolu racine du projet

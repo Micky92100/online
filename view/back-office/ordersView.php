@@ -2,7 +2,6 @@
 
 
 <?php
-var_dump($_SESSION);
 if (!user_is_admin()) {
     $title = 'Accès interdit (ordersView)';
     $content = '<h1>Vers l\'<a href="?action=listProductsIndex">accueil</a></h1>';
