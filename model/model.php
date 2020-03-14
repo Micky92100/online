@@ -30,7 +30,6 @@ function user_is_connected()
 
 function user_is_admin()
 {
-    // var_dump($_SESSION);
     $msg = '';
     if (user_is_connected() && $_SESSION['membre']['statut'] == 2) {
         return true;
