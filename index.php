@@ -115,8 +115,6 @@ if (isset($_GET['action'])) {
         if (!isset($_SESSION)) {
             session_start();
         }
-        // echo 'sessiondestroy';
-        // session_destroy();
         header("Location: " . $_SERVER['PHP_SELF']);
         getLogin();
         ////////////////////////////////////////////////////////////////// LOG&SIGN ^

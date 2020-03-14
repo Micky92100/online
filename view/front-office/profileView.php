@@ -13,7 +13,7 @@ $pseudo = $_SESSION['membre']['pseudo'];
         <th>Id commande</th>
         <th>Id produit</th>
         <th>Prix</th>
-        <th>Date enregistrement</th>
+        <th>Date d'enregistrement</th>
     </tr>
     <?php
     if (!empty($profile_details)) {

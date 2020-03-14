@@ -31,7 +31,7 @@
                 echo '<td>' . $room['titre'] . '</td>';
                 echo '<td>' . $room['categorie'] . '</td>';
                 echo '<td>' . substr($room['description'], 0, 30) . '...</td>';
-                echo '<td><img src="../../img/' . $room['photo'] . '" class="img-thumbnail" width="140" alt="' . $room['description'] . '"></td>';
+                echo '<td><img src="'. URL .'img/' . $room['photo'] . '" class="img-thumbnail" width="140" alt="' . $room['description'] . '"></td>';
                 echo '<td>' . $room['pays'] . '</td>';
                 echo '<td>' . $room['ville'] . '</td>';
                 echo '<td>' . $room['adresse'] . '</td>';

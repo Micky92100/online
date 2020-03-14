@@ -128,7 +128,6 @@ function doSignUp()
 function getLogin()
 {
     if (isset($_SESSION)) {
-        echo 'sessiondestroy';
         session_destroy();
     }
     require('view/front-office/loginView.php');

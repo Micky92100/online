@@ -9,13 +9,13 @@
         <table class="table table-bordered">
             <tr>
                 <th>Id membre</th>
-                <th>pseudo</th>
-                <th>nom</th>
-                <th>prenom</th>
-                <th>email</th>
-                <th>civilite</th>
-                <th>statut</th>
-                <th>date_enregistrement</th>
+                <th>Pseudo</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>E-mail</th>
+                <th>Civilite</th>
+                <th>Statut</th>
+                <th>Date d'enregistrement</th>
                 <th>Modif</th>
                 <th>Suppr</th>
             </tr>

@@ -3,16 +3,18 @@
 
 session_start();
 define('SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
-// define('SITE_ROOT', SERVER_ROOT . '/switch/');
 define('SITE_ROOT', '/switch/');
 
 define('URL', 'http://hotelcop-paris.fr/switch/'); // lien absolu racine du projet
 
 function dbConnect()
 {
-    $host_db = 'mysql:host=db5000323572.hosting-data.io;dbname=dbs315703';
-    $login = 'dbu584787';
-    $password = 'Num4num@';
+//    $host_db = 'mysql:host=db5000323572.hosting-data.io;dbname=dbs315703';
+//    $login = 'dbu584787';
+//    $password = 'Num4num@';
+    $host_db = 'mysql:host=localhost;dbname=projet_switch';
+    $login = 'root';
+    $password = '';
     $options = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
@@ -31,13 +33,12 @@ function user_is_connected()
 
 function user_is_admin()
 {
-    // var_dump($_SESSION);
     $msg = '';
     if (user_is_connected() && $_SESSION['membre']['statut'] == 2) {
         return true;
     } else {
         return false;
-        
+
     }
 }
 
@@ -293,6 +294,7 @@ function saveUserByAdmin()
     }
     return $msg;
 }
+
 /////////////////////////////////////////////////////////////////////// USERS
 
 /////////////////////////////////////////////////////////////////////// PRODUCTS
@@ -368,18 +370,16 @@ AND salle.capacite >= :capacite
 AND produit.prix <= :prix
 AND produit.date_arrivee >= NOW()
 AND produit.etat = \'libre\'
--- Dates not working :(
--- AND UNIX_TIMESTAMP(produit.date_arrivee) >= UNIX_TIMESTAMP(:date_arrivee)
--- AND UNIX_TIMESTAMP(produit.date_depart) <= UNIX_TIMESTAMP(:date_depart)
+AND (produit.date_arrivee BETWEEN \'1980-01-01T00:00\' AND :date_arrivee)
+AND (produit.date_depart BETWEEN :date_depart AND \'2199-12-31T23:59\')
 ');
 
     $result_products->bindParam(":categorie", intval($categorie), PDO::PARAM_INT);
     $result_products->bindParam(":ville", $ville, PDO::PARAM_STR);
     $result_products->bindParam(":capacite", $capacite, PDO::PARAM_INT);
     $result_products->bindParam(":prix", $prix, PDO::PARAM_INT);
-//  Dates not working :(
-//  $result_products->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
-//  $result_products->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
+    $result_products->bindParam(":date_arrivee", $date_arrivee, PDO::PARAM_STR);
+    $result_products->bindParam(":date_depart", $date_depart, PDO::PARAM_STR);
     $result_products->execute();
 
     if ($result_products->rowCount() > 0) {

@@ -12,12 +12,12 @@
     <div class="table-responsive">
         <table class="table table-bordered">
             <tr>
-                <th>id_avis</th>
-                <th>id_membre</th>
-                <th>id_salle</th>
-                <th>commentaire</th>
-                <th>note</th>
-                <th>date_enregistrement</th>
+                <th>Id avis</th>
+                <th>Id membre</th>
+                <th>Id salle</th>
+                <th>Commentaire</th>
+                <th>Note</th>
+                <th>Date d'enregistrement</th>
             </tr>
             <?php
             while ($avis = $notice_list->fetch(PDO::FETCH_ASSOC)) {
