@@ -21,14 +21,14 @@ if (!empty($product)) {
     <div class="table-responsive">
         <table class="table table-bordered">
             <tr>
-                <th>titre</th>
-                <th>note moyenne</th>
-                <th>photo</th>
-                <th>description</th>
+                <th>Titre</th>
+                <th>Note moyenne</th>
+                <th>Photo</th>
+                <th>Description</th>
                 <th>Date d'arrivée</th>
                 <th>Date de départ</th>
-                <th>capacité</th>
-                <th>catégorie</th>
+                <th>Capacité</th>
+                <th>Catégorie</th>
                 <th>Prix</th>
             </tr>
             <?php
