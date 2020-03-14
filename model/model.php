@@ -1,11 +1,8 @@
 <?php
-
-
 session_start();
 define('SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
 define('SITE_ROOT', '/switch/');
-
-define('URL', 'http://hotelcop-paris.fr/switch/'); // lien absolu racine du projet
+define('URL', 'http://hotelcop-paris.fr/switch/');
 
 function dbConnect()
 {
@@ -24,7 +21,6 @@ function dbConnect()
 
 function user_is_connected()
 {
-    $msg = '';
     if (!empty($_SESSION['membre'])) {
         return true;
     }
@@ -33,19 +29,16 @@ function user_is_connected()
 
 function user_is_admin()
 {
-    $msg = '';
     if (user_is_connected() && $_SESSION['membre']['statut'] == 2) {
         return true;
     } else {
         return false;
-
     }
 }
 
 /////////////////////////////////////////////////////////////////////// ROOMS
 function getAllRooms()
 {
-    $msg = '';
     $pdo = dbConnect();
 
     return $pdo->query("SELECT * FROM salle");
@@ -53,7 +46,6 @@ function getAllRooms()
 
 function getRoomForUpdate($room_id)
 {
-    $msg = '';
     $pdo = dbConnect();
 
     $current_room = $pdo->prepare("SELECT * FROM salle WHERE id_salle = :roomId");
@@ -67,7 +59,6 @@ function getRoomForUpdate($room_id)
 
 function deleteRoom()
 {
-    $msg = '';
     $pdo = dbConnect();
 
     $del = $pdo->prepare("DELETE FROM salle WHERE id_salle = :roomId");
@@ -152,7 +143,6 @@ function saveOrUpdateRoom()
 /////////////////////////////////////////////////////////////////////// USERS
 function getAllUsers()
 {
-    $msg = '';
     $pdo = dbConnect();
 
     return $pdo->query('SELECT * FROM membre');
@@ -160,7 +150,6 @@ function getAllUsers()
 
 function deleteUser()
 {
-    $msg = '';
     $pdo = dbConnect();
 
     $del = $pdo->prepare("DELETE FROM membre WHERE id_membre = :userId");
@@ -170,7 +159,6 @@ function deleteUser()
 
 function getUserForUpdate($user_id)
 {
-    $msg = '';
     $pdo = dbConnect();
 
     $current_user = $pdo->prepare("SELECT * FROM membre WHERE id_membre = :userId");
@@ -300,15 +288,15 @@ function saveUserByAdmin()
 /////////////////////////////////////////////////////////////////////// PRODUCTS
 function getAllProductsIndex()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query('SELECT id_produit, prix, date_arrivee, date_depart, titre, description, photo FROM produit, salle WHERE produit.id_salle = salle.id_salle AND etat = \'libre\' AND date_arrivee >= NOW()');
 }
 
 function getAllProducts()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query(
         'SELECT id_produit, date_arrivee, date_depart, produit.id_salle, salle.titre, salle.capacite, salle.adresse, salle.cp, salle.ville, salle.photo, salle.description, prix, etat 
 FROM produit, salle 
@@ -318,7 +306,6 @@ WHERE produit.id_salle = salle.id_salle'
 
 function getProductForUpdate($product_id)
 {
-    $msg = '';
     $pdo = dbConnect();
 
     $current_product = $pdo->prepare('SELECT * FROM produit WHERE id_produit = :productId');
@@ -332,8 +319,8 @@ function getProductForUpdate($product_id)
 
 function getProduct($product_id)
 {
-    $msg = '';
     $pdo = dbConnect();
+
     $get = $pdo->prepare('
         SELECT titre, (SELECT ROUND(AVG(avis.note), 2) FROM avis WHERE avis.id_salle = produit.id_salle) AS note, photo, description, date_arrivee, date_depart, capacite, categorie, prix
         FROM salle, produit
@@ -350,8 +337,8 @@ function getProduct($product_id)
 
 function getSearchedProducts()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     $categorie = trim($_POST['category']);
     $ville = trim($_POST['city']);
     $capacite = trim($_POST['capacity']);
@@ -389,7 +376,6 @@ AND (produit.date_depart BETWEEN :date_depart AND \'2199-12-31T23:59\')
 
 function deleteProduct()
 {
-    $msg = '';
     $pdo = dbConnect();
 
     $del = $pdo->prepare("DELETE FROM produit WHERE id_produit = :productId");
@@ -432,9 +418,8 @@ function saveOrUpdateProduct()
 /////////////////////////////////////////////////////////////////////// LOG&SIGN
 function verifyLogin()
 {
-    $msg = '';
-
     $pdo = dbConnect();
+
     $pseudo = trim($_POST['pseudo']);
     $mdp = trim($_POST['mdp']);
 
@@ -470,8 +455,8 @@ function verifyLogin()
 /////////////////////////////////////////////////////////////////////// ORDERS
 function getAllOrders()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query(
         'SELECT commande.id_commande, commande.id_membre, membre.email, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement 
 FROM commande, produit, membre, salle 
@@ -483,7 +468,6 @@ WHERE commande.id_membre = membre.id_membre
 
 function deleteOrder()
 {
-    $msg = '';
     $pdo = dbConnect();
 
     $del = $pdo->prepare("DELETE FROM commande WHERE id_commande = :commandeId");
@@ -496,8 +480,8 @@ function deleteOrder()
 /////////////////////////////////////////////////////////////////////// RATINGS
 function getAllRatings()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query('SELECT avis.id_avis, avis.id_membre, membre.email, avis.id_salle, salle.titre, avis.commentaire, avis.note, avis.date_enregistrement  
     FROM avis, membre, salle 
     WHERE avis.id_membre = membre.id_membre 
@@ -509,8 +493,8 @@ function getAllRatings()
 /////////////////////////////////////////////////////////////////////// STATS (TOP5s)
 function getRoomRatingStats()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query('
     SELECT salle.id_salle, salle.titre, (SELECT ROUND(AVG(avis.note), 2) FROM avis WHERE avis.id_salle = salle.id_salle) AS rating 
     FROM salle 
@@ -522,8 +506,8 @@ function getRoomRatingStats()
 
 function getRoomTimesOrderedStats()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query('
     SELECT salle.id_salle, salle.titre, (SELECT COUNT(commande.id_commande) FROM commande, produit WHERE commande.id_produit = produit.id_produit AND produit.id_salle = salle.id_salle) AS times_ordered 
     FROM salle 
@@ -534,8 +518,8 @@ function getRoomTimesOrderedStats()
 
 function getUserPurchasesStats()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query('
     SELECT membre.id_membre, membre.pseudo, (SELECT COUNT(commande.id_commande) FROM commande WHERE commande.id_membre = membre.id_membre) AS times_purchased 
     FROM membre
@@ -547,8 +531,8 @@ function getUserPurchasesStats()
 
 function getUserValueStats()
 {
-    $msg = '';
     $pdo = dbConnect();
+
     return $pdo->query('
     SELECT membre.id_membre, membre.pseudo, (SELECT SUM(produit.prix) FROM commande, produit WHERE commande.id_membre = membre.id_membre AND commande.id_produit = produit.id_produit) AS amount_spent
     FROM membre 
@@ -564,6 +548,7 @@ function getUserValueStats()
 function getProfileDetails($user_id)
 {
     $pdo = dbConnect();
+
     $get = $pdo->prepare(
         'SELECT commande.id_commande, commande.id_produit, salle.titre, produit.date_arrivee, produit.date_depart, produit.prix, commande.date_enregistrement 
     FROM commande, produit, salle 
