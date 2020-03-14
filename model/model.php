@@ -9,12 +9,12 @@ define('URL', 'http://hotelcop-paris.fr/switch/'); // lien absolu racine du proj
 
 function dbConnect()
 {
-//    $host_db = 'mysql:host=db5000323572.hosting-data.io;dbname=dbs315703';
-//    $login = 'dbu584787';
-//    $password = 'Num4num@';
-    $host_db = 'mysql:host=localhost;dbname=projet_switch';
-    $login = 'root';
-    $password = '';
+    $host_db = 'mysql:host=db5000323572.hosting-data.io;dbname=dbs315703';
+    $login = 'dbu584787';
+    $password = 'Num4num@';
+//    $host_db = 'mysql:host=localhost;dbname=projet_switch';
+//    $login = 'root';
+//    $password = '';
     $options = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
